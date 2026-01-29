@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MARIN KITAGAWA OFFICIAL</title>
+  <style>
+    :root{
+--night-bg:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+--light-bg:linear-gradient(135deg,#ffdde1,#fff1eb,#fbc2eb,#a6c1ee);
+--pink:#ff7eb3
+}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Poppins',Arial,sans-serif;background:var(--night-bg);color:#f1f1f1;overflow-x:hidden;position:relative;transition:background .8s ease,color .6s ease}
+
+    /* BACKGROUND */
+    .bg-marin{
+      position:fixed;inset:0;
+      background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+      z-index:-5;
+    }
+
+    /* MOON */
+    .moon{
+      position:fixed;top:60px;left:60px;
+      width:160px;height:160px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #fff, #d9d9ff 40%, #b8b8ff 60%);
+      box-shadow:0 0 40px rgba(200,200,255,.6),0 0 80px rgba(160,160,255,.35);
+      opacity:.9;z-index:-4;
+      animation:moonGlow 6s ease-in-out infinite;
+    }
+    @keyframes moonGlow{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+    /* SAKURA PETALS */
+    .petals{position:fixed;inset:0;pointer-events:none;z-index:-2}
+    .petal{position:absolute;top:-12vh;width:12px;height:18px;
+      background:radial-gradient(circle at 30% 30%, #fff, #ff9fc9 60%);
+      border-radius:60% 40% 60% 40%;opacity:.95;animation:fall linear infinite}
+    .petal.big{width:18px;height:26px;opacity:.85}
+    @keyframes fall{to{transform:translateY(112vh) rotate(420deg)}}
+
+    header{
+      position:relative;text-align:center;padding:60px 20px;
+      background:linear-gradient(135deg,#141e30,#243b55)
+    }
+    #modeToggle{
+      position:absolute;top:18px;right:18px;
+      padding:10px 18px;border-radius:20px;border:none;cursor:pointer;font-weight:bold
+    }
+
+    .container{max-width:1100px;margin:auto;padding:50px 20px}
+    .card{
+      background:#ffffffee;color:#222;border-radius:30px;padding:35px;
+      box-shadow:0 20px 50px rgba(0,0,0,.35)
+    }
+    h2{text-align:center;color:#ff4f81}
+    label{display:block;margin-top:15px;font-weight:bold}
+    select{width:100%;padding:12px;margin-top:8px;border-radius:12px;border:1px solid #ccc}
+    .total{margin-top:20px;font-size:1.3rem;font-weight:bold;color:#ff4f81;text-align:center}
+    .btn{display:block;margin:20px auto 0;padding:14px 35px;
+      background:linear-gradient(135deg,#25d366,#4ee58b);
+      color:#fff;text-decoration:none;border-radius:35px;font-weight:bold;text-align:center;width:fit-content}
+
+    footer{text-align:center;padding:30px;background:linear-gradient(135deg,#141e30,#243b55);color:#fff;margin-top:60px}
+  </style>
+</head>
+<body>
+  <div class="bg-marin"></div>
+  <div class="moon"></div>
+  <div class="petals" id="petals"></div>
+
+  <header>
+    <button id="modeToggle">🌙 Night</button>
+    <h1>MARIN KITAGAWA OFFICIAL</h1>
+    <p>Penyewaan Bot WhatsApp Anime Style ✨</p>
+    <p>Owner Bot: <strong>ikhlashdyt</strong></p>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>Paket Layanan Bot</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:30px;">
+        <div style="background:linear-gradient(135deg,#2b1f3a,#3b2a5a);color:#fff;border-radius:24px;padding:25px;text-align:center;">
+          <h3 style="color:#ff9fc9">Basic</h3>
+          <p><strong>Rp 15.000 / bulan</strong></p>
+          <a href="https://wa.me/6283877321654?text=halo,%20saya%20ingin%20menyewa%20bot%20paket%20Basic" target="_blank" class="btn">Pesan via WhatsApp</a>
+        </div>
+        <div style="background:linear-gradient(135deg,#1e2a4f,#2f4b8f);color:#fff;border-radius:24px;padding:25px;text-align:center;">
+          <h3 style="color:#9fb4ff">Premium</h3>
+          <p><strong>Rp 25.000 / bulan</strong></p>
+          <a href="https://wa.me/6283877321654?text=halo,%20saya%20ingin%20menyewa%20bot%20paket%20Premium" target="_blank" class="btn">Pesan via WhatsApp</a>
+        </div>
+      </div>
+
+      <hr style="margin:40px 0;opacity:.2">
+
+      <h2>Hitung Total Sewa</h2>
+      <label>Pilih Paket</label>
+      <select id="paket" onchange="hitung()">
+        <option value="15000">Basic – Rp 15.000 / bulan</option>
+        <option value="25000">Premium – Rp 25.000 / bulan</option>
+      </select>
+
+      <label>Pilih Durasi</label>
+      <select id="durasi" onchange="hitung()">
+        <option value="1">1 Bulan</option>
+        <option value="3">3 Bulan</option>
+        <option value="6">6 Bulan</option>
+        <option value="12">12 Bulan</option>
+      </select>
+
+      <div class="total" id="total"></div>
+      <a id="waBtn" class="btn" target="_blank">Pesan via WhatsApp</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Call Center WhatsApp: <strong>+62 0838 7732 1654</strong></p>
+    <p>© 2026 MARIN KITAGAWA OFFICIAL</p>
+  </footer>
+
+  <script>
+    const petalsWrap=document.getElementById('petals');
+    for(let i=0;i<40;i++){
+      const p=document.createElement('div');
+      p.className='petal'+(Math.random()>0.7?' big':'');
+      p.style.left=Math.random()*100+'vw';
+      p.style.animationDuration=8+Math.random()*10+'s';
+      p.style.animationDelay=Math.random()*-10+'s';
+      petalsWrap.appendChild(p);
+    }
+
+    function hitung(){
+      const paket=document.getElementById('paket');
+      const durasi=document.getElementById('durasi');
+      const harga=parseInt(paket.value);
+      const bulan=parseInt(durasi.value);
+      const total=harga*bulan;
+      document.getElementById('total').innerText='Total: Rp '+total.toLocaleString('id-ID');
+      const paketText=paket.options[paket.selectedIndex].text;
+      const pesan=`halo, saya ingin menyewa bot untuk keperluan saya\n\nDetail Pesanan:\nPaket: ${paketText}\nDurasi: ${bulan} bulan\nTotal Transaksi: Rp ${total.toLocaleString('id-ID')}`;
+      document.getElementById('waBtn').href='https://wa.me/6283877321654?text='+encodeURIComponent(pesan);
+    }
+    hitung();
+
+    const toggleBtn=document.getElementById('modeToggle');
+    let night=true;
+    toggleBtn.onclick=()=>{
+      night=!night;
+      document.body.style.background=night?'var(--night-bg)':'var(--light-bg)';
+      toggleBtn.innerText=night?'🌙 Night':'☀️ Light';
+    };
+  </script>
+</body>
+</html>
